@@ -6,4 +6,4 @@ var config = {
   client_id :  process.env.client_id
 };
 
-authProxy(config).listen(8081);
+authProxy(config).listen(process.env.PORT || 5000);

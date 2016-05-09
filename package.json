@@ -17,6 +17,9 @@
     "firebase-token-generator": "^2.0.0",
     "request": "^2.65.0"
   },
+  "scripts": {
+    "start": "node index.js"
+  },
   "main": "index",
   "engines": {
     "node": ">= 0.4.1"
