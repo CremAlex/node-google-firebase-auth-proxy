@@ -5,10 +5,10 @@ var express = require('express')
   , app = express();
 
 module.exports = function(config) {
-  var tokenGenerator = new FirebaseTokenGenerator(config.firebase_secrect);
-   
+  var tokenGenerator = new FirebaseTokenGenerator(config.firebase_secret);
+
   app.use(cors());
-   
+
   app.get('/', function(req, res, next){
     console.log(req.query.id_token);
     var token = req.query.id_token;
@@ -17,13 +17,15 @@ module.exports = function(config) {
       if (!error && response.statusCode == 200) {
         //valid token
         var tokenInfo = JSON.parse(body);
+
         //check whether aud contains clientid and hd, if provided, matches configured hd
         if(tokenInfo.aud.indexOf(config.client_id) > -1 && ( !config.hd || tokenInfo.hd === config.hd ) ) {
           var firebaseTokenInfo = {
-            uid: tokenInfo.sub,
-            email: tokenInfo.email,
-            given_name: tokenInfo.given_name,
-            family_name: tokenInfo.family_name
+            uid           : tokenInfo.sub,
+            email         : tokenInfo.email,
+            name          : tokenInfo.name,
+            hd            : tokenInfo.hd,
+            locale        : tokenInfo.locale
           };
           var firebaseToken = tokenGenerator.createToken(firebaseTokenInfo);
           res.json({valid: true, token: firebaseToken});
