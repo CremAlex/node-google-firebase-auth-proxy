@@ -17,15 +17,18 @@ module.exports = function(config) {
       if (!error && response.statusCode == 200) {
         //valid token
         var tokenInfo = JSON.parse(body);
-
+        console.log(tokenInfo.hd);
         //check whether aud contains clientid and hd, if provided, matches configured hd
-        if(tokenInfo.aud.indexOf(config.client_id) > -1 && ( !config.hd || tokenInfo.hd === config.hd ) ) {
+        //TODO typeChecker aud always a String??
+        const validTokenId = tokenInfo && tokenInfo.aud ? tokenInfo.aud.indexOf(config.client_id) > -1 : false;
+        if( validTokenId && ( !config.hd || tokenInfo.hd === config.hd ) ) {
           var firebaseTokenInfo = {
             uid           : tokenInfo.sub,
             email         : tokenInfo.email,
             name          : tokenInfo.name,
             hd            : tokenInfo.hd,
-            locale        : tokenInfo.locale
+            locale        : tokenInfo.locale,
+            picture       : tokenInfo.picture? tokenInfo.picture || null
           };
           var firebaseToken = tokenGenerator.createToken(firebaseTokenInfo);
           res.json({valid: true, token: firebaseToken});
