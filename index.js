@@ -28,7 +28,7 @@ module.exports = function(config) {
             name          : tokenInfo.name,
             hd            : tokenInfo.hd,
             locale        : tokenInfo.locale,
-            picture       : tokenInfo.picture? tokenInfo.picture || null
+            picture       : tokenInfo.picture ? tokenInfo.picture : null
           };
           var firebaseToken = tokenGenerator.createToken(firebaseTokenInfo);
           res.json({valid: true, token: firebaseToken});
