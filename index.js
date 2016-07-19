@@ -27,7 +27,8 @@ module.exports = function(config) {
             email         : tokenInfo.email,
             name          : tokenInfo.name,
             hd            : tokenInfo.hd,
-            locale        : tokenInfo.locale
+            locale        : tokenInfo.locale,
+            picture       : tokenInfo.picture ? tokenInfo.picture : null
           };
           var year = new Date().getFullYear() + 1;
           var firebaseToken = tokenGenerator.createToken(firebaseTokenInfo, {expires : Math.floor(new Date().setFullYear(year)/1000) } );
