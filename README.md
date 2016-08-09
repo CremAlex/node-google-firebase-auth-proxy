@@ -8,6 +8,10 @@ var config = {
   hd                : process.env.hd || null
 };
 
+//start server
+authProxy.listen(8080); //the auth-proxy is now running on port 8080
+```
+
 ## Heroku deploiment
 
 heroku config to see actual config
@@ -17,9 +21,6 @@ heroku config:set client_id='client_id' to push new config var
 git push heroku master after commited all changes to update the proxy
 
 
-//start server
-authProxy.listen(8080); //the auth-proxy is now running on port 8080
-```
 
 The client-side usage is documented in test/index.html. You have to perform an ordinary google-login using the google signin-api:
 ```html
