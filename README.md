@@ -2,14 +2,15 @@
 
 The google-firebase-auth-proxy-module provides a single function which takes a config-object as first parameter and returns an express app-instance:
 ```js
+var authProxy = require('./index');
+
 var config = {
   firebase_secret   : process.env.firebase_secret,
   client_id         : process.env.client_id,
   hd                : process.env.hd || null
 };
-
-//start server
-authProxy.listen(8080); //the auth-proxy is now running on port 8080
+//DO NOT push this file with your config variables /!\
+authProxy(config).listen(process.env.PORT || 5000);
 ```
 
 ## Heroku deployment
